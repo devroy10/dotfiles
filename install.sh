@@ -116,6 +116,13 @@ if [ -f "$DOTFILES_DIR/kitty/kitty.conf" ]; then
     "$HOME/.config/kitty/kitty.conf"
 fi
 
+echo "==> Making Kitty the default terminal"
+if command -v kitty >/dev/null 2>&1; then
+  sudo update-alternatives --set x-terminal-emulator "$(which kitty)" || true
+  gsettings set org.gnome.desktop.default-applications.terminal exec 'kitty' || true
+  gsettings set org.gnome.desktop.default-applications.terminal exec-arg '' || true
+fi
+
 echo "==> Done."
 echo "Reminder: install a Nerd Font (e.g. MesloLGS NF) on this machine's"
 echo "terminal emulator/GUI for Powerlevel10k icons to render correctly —"
