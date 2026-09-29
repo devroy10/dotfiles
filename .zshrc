@@ -78,10 +78,12 @@ POWERLEVEL9K_MODE="nerdfont-complete"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git zsh-autosuggestions web-search history sudo wd fzf-tab zsh-syntax-highlighting)
-source $ZSH/oh-my-zsh.sh
 
-# Real-time find-as-you-type completion (must load after compinit/plugins)
+# Real-time find-as-you-type completion. Must be sourced BEFORE compinit runs
+# (Oh My Zsh runs compinit), so it goes before oh-my-zsh.sh.
 source "${ZSH_CUSTOM:-$ZSH/custom}/plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh"
+
+source $ZSH/oh-my-zsh.sh
 
 # User configuration
 

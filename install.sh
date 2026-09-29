@@ -89,7 +89,7 @@ fi
 
 echo "==> Backing up any existing configs"
 TIMESTAMP=$(date +%Y%m%d%H%M%S)
-for f in .zshrc .p10k.zsh .tmux.conf; do
+for f in .zshrc .zshenv .p10k.zsh .tmux.conf; do
   if [ -e "$HOME/$f" ] && [ ! -L "$HOME/$f" ]; then
     mv "$HOME/$f" "$HOME/$f.bak.$TIMESTAMP"
     echo "Backed up existing $f -> $f.bak.$TIMESTAMP"
@@ -111,9 +111,15 @@ if [ ! -f "$DOTFILES_DIR/.p10k.zsh" ]; then
   exit 1
 fi
 
+if [ ! -f "$DOTFILES_DIR/.zshenv" ]; then
+  echo "Missing .zshenv in dotfiles repo"
+  exit 1
+fi
+
 # SYMLINK TO DOTFILES
 echo "==> Symlinking configs"
 ln -sf "$DOTFILES_DIR/.zshrc" "$HOME/.zshrc"
+ln -sf "$DOTFILES_DIR/.zshenv" "$HOME/.zshenv"
 ln -sf "$DOTFILES_DIR/.p10k.zsh" "$HOME/.p10k.zsh"
 ln -sf "$DOTFILES_DIR/.tmux.conf" "$HOME/.tmux.conf"
 

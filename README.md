@@ -9,6 +9,7 @@ Config for my shell and terminal setup (Ghostty, Zsh, tmux). Uses symlinks into 
 | `install.sh` | Main setup. Installs packages, Oh My Zsh, Powerlevel10k, plugins, TPM. Backs up and symlinks configs. |
 | `install-apps.sh` | Installs apps from their curl installers (opencode, bun). Skips anything already present. |
 | `.zshrc` | Zsh config |
+| `.zshenv` | Zsh env (sets `skip_global_compinit` so zsh-autocomplete owns completion) |
 | `.p10k.zsh` | Powerlevel10k theme config |
 | `.tmux.conf` | Tmux config |
 | `.gitconfig` | Git config |
