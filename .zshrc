@@ -77,8 +77,11 @@ POWERLEVEL9K_MODE="nerdfont-complete"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-autosuggestions zsh-syntax-highlighting web-search history sudo wd)
+plugins=(git zsh-autosuggestions web-search history sudo wd fzf-tab zsh-syntax-highlighting)
 source $ZSH/oh-my-zsh.sh
+
+# Real-time find-as-you-type completion (must load after compinit/plugins)
+source "${ZSH_CUSTOM:-$ZSH/custom}/plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh"
 
 # User configuration
 
@@ -119,7 +122,7 @@ export PATH=$PATH:$ANDROID_HOME/emulator:$ANDROID_HOME/platform-tools:$ANDROID_H
 
 # --- Version Managers & Tools ---
 # Mise (Universal manager)
-eval "$(~/.local/bin/mise activate zsh)"
+#eval "$(~/.local/bin/mise activate zsh)"
 
 # rbenv
 eval "$(~/.rbenv/bin/rbenv init - zsh)"
@@ -140,6 +143,9 @@ export PNPM_HOME="$HOME/.local/share/pnpm"
 # Homebrew (Linuxbrew)
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
+# Ensure ~/.local/bin wins over Homebrew (uv-managed python3/pip)
+export PATH="$HOME/.local/bin:$PATH"
+
 # --- Aliases ---
 alias ll='ls -alF'
 alias la='ls -A'
@@ -148,3 +154,39 @@ alias grep='grep --color=auto'
 
 # Load extra aliases if you have them
 [ -f ~/.bash_aliases ] && source ~/.bash_aliases
+
+# opencode
+export PATH=/home/debianson/.opencode/bin:$PATH
+
+# bun completions
+[ -s "/home/debianson/.bun/_bun" ] && source "/home/debianson/.bun/_bun"
+
+if [ -e /home/debianson/.nix-profile/etc/profile.d/nix.sh ]; then . /home/debianson/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+
+# Local secrets (untracked)
+[ -f "$HOME/.secrets" ] && source "$HOME/.secrets"
+
+export JMETER_HOME=/opt/jmeter
+export PATH=$PATH:$JMETER_HOME/bin
+export PATH="/usr/local/go/bin:$PATH"
+export PATH="/home/debianson/go/bin:$PATH"
+
+# Zerops shell aliases
+[ -f "$HOME/.config/zerops/aliases" ] && . "$HOME/.config/zerops/aliases"
+
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	command yazi "$@" --cwd-file="$tmp"
+	IFS= read -r -d '' cwd < "$tmp"
+	[ "$cwd" != "$PWD" ] && [ -d "$cwd" ] && builtin cd -- "$cwd"
+	command rm -f -- "$tmp"
+}
+
+# pnpm
+export PNPM_HOME='/home/debianson/.local/share/pnpm'
+case ":$PATH:" in
+  *":$PNPM_HOME/bin:"*) ;;
+  *) export PATH="$PNPM_HOME/bin:$PATH" ;;
+esac
+# pnpm end
+DISABLE_TELEMETRY=1
