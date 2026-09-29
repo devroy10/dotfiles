@@ -33,6 +33,7 @@ curl -fsSL https://raw.githubusercontent.com/devroy10/dotfiles/main/install-apps
 - Run from a fresh machine or an existing one. The main script backs up old configs before symlinking.
 - Oh My Zsh and Powerlevel10k are handled by `install.sh`, so they don't appear in `install-apps.sh`.
 - Install a Nerd Font (MesloLGS NF works) in your terminal so the Powerlevel10k icons render properly.
+- Secrets (e.g. `GITHUB_TOKEN`) live in `~/.secrets` (untracked, `chmod 600`), which `.zshrc` sources if present. They are never committed to this repo.
 
 ## Add an app
 

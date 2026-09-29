@@ -14,7 +14,7 @@ fi
 
 echo "==> Installing base packages"
 sudo apt update
-sudo apt install -y zsh tmux git curl fonts-powerline kitty
+sudo apt install -y zsh tmux git curl fonts-powerline kitty fzf
 
 echo "==> Installing Ghostty"
 if ! command -v ghostty >/dev/null 2>&1; then
@@ -58,6 +58,24 @@ if [ ! -d "$SYNTAX_DIR" ]; then
   git clone --depth=1 \
     https://github.com/zsh-users/zsh-syntax-highlighting \
     "$SYNTAX_DIR"
+fi
+
+echo "==> Installing fzf-tab"
+FZF_TAB_DIR="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/fzf-tab"
+
+if [ ! -d "$FZF_TAB_DIR" ]; then
+  git clone --depth=1 \
+    https://github.com/Aloxaf/fzf-tab \
+    "$FZF_TAB_DIR"
+fi
+
+echo "==> Installing zsh-autocomplete"
+AUTOCOMPLETE_DIR="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autocomplete"
+
+if [ ! -d "$AUTOCOMPLETE_DIR" ]; then
+  git clone --depth=1 \
+    https://github.com/marlonrichert/zsh-autocomplete \
+    "$AUTOCOMPLETE_DIR"
 fi
 
 # PLUGIN MANAGER
