@@ -77,7 +77,7 @@ POWERLEVEL9K_MODE="nerdfont-complete"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-autosuggestions web-search history sudo wd fzf-tab zsh-syntax-highlighting)
+plugins=(git zsh-autosuggestions web-search history sudo wd zsh-syntax-highlighting)
 
 # Put zsh-autocomplete's Completions on fpath BEFORE compinit runs, so its
 # helper functions get autoloaded (Oh My Zsh runs compinit inside oh-my-zsh.sh).
@@ -88,6 +88,9 @@ source $ZSH/oh-my-zsh.sh
 # Real-time find-as-you-type completion. Sourced AFTER Oh My Zsh so its key
 # bindings win over Oh My Zsh's default history keys.
 source "${ZSH_CUSTOM:-$ZSH/custom}/plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh"
+
+# fzf-tab: sourced last so it owns the Tab key for its fuzzy menu.
+source "${ZSH_CUSTOM:-$ZSH/custom}/plugins/fzf-tab/fzf-tab.plugin.zsh"
 
 # User configuration
 
