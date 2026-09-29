@@ -79,11 +79,15 @@ POWERLEVEL9K_MODE="nerdfont-complete"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git zsh-autosuggestions web-search history sudo wd fzf-tab zsh-syntax-highlighting)
 
-# Real-time find-as-you-type completion. Must be sourced BEFORE compinit runs
-# (Oh My Zsh runs compinit), so it goes before oh-my-zsh.sh.
-source "${ZSH_CUSTOM:-$ZSH/custom}/plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh"
+# Put zsh-autocomplete's Completions on fpath BEFORE compinit runs, so its
+# helper functions get autoloaded (Oh My Zsh runs compinit inside oh-my-zsh.sh).
+fpath=("${ZSH_CUSTOM:-$ZSH/custom}/plugins/zsh-autocomplete/Completions" $fpath)
 
 source $ZSH/oh-my-zsh.sh
+
+# Real-time find-as-you-type completion. Sourced AFTER Oh My Zsh so its key
+# bindings win over Oh My Zsh's default history keys.
+source "${ZSH_CUSTOM:-$ZSH/custom}/plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh"
 
 # User configuration
 
