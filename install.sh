@@ -16,6 +16,11 @@ echo "==> Installing base packages"
 sudo apt update
 sudo apt install -y zsh tmux git curl fonts-powerline kitty
 
+echo "==> Installing Ghostty"
+if ! command -v ghostty >/dev/null 2>&1; then
+  sudo snap install ghostty --classic || true
+fi
+
 echo "==> Cloning dotfiles repo"
 if [ -d "$DOTFILES_DIR" ]; then
   echo "Dotfiles already present, pulling latest"
@@ -123,10 +128,13 @@ if [ -f "$DOTFILES_DIR/kitty/kitty.conf" ]; then
     "$HOME/.config/kitty/kitty.conf"
 fi
 
-echo "==> Making Kitty the default terminal"
-if command -v kitty >/dev/null 2>&1; then
-  sudo update-alternatives --set x-terminal-emulator "$(which kitty)" || true
-  gsettings set org.gnome.desktop.default-applications.terminal exec 'kitty' || true
+echo "==> Making Ghostty the default terminal"
+if command -v ghostty >/dev/null 2>&1; then
+  GHOSTTY_BIN="$(which ghostty)"
+  sudo update-alternatives --install /usr/bin/x-terminal-emulator \
+    x-terminal-emulator "$GHOSTTY_BIN" 60 || true
+  sudo update-alternatives --set x-terminal-emulator "$GHOSTTY_BIN" || true
+  gsettings set org.gnome.desktop.default-applications.terminal exec 'ghostty' || true
   gsettings set org.gnome.desktop.default-applications.terminal exec-arg '' || true
 fi
 

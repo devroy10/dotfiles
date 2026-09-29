@@ -1,6 +1,6 @@
 # dotfiles
 
-Config for my shell and terminal setup. Uses symlinks into this repo so everything stays in one place.
+Config for my shell and terminal setup (Ghostty, Zsh, tmux). Uses symlinks into this repo so everything stays in one place.
 
 ## What's inside
 
@@ -12,6 +12,7 @@ Config for my shell and terminal setup. Uses symlinks into this repo so everythi
 | `.p10k.zsh` | Powerlevel10k theme config |
 | `.tmux.conf` | Tmux config |
 | `.gitconfig` | Git config |
+| `ghostty/` | Ghostty terminal config (default terminal) |
 | `kitty/` | Kitty terminal config |
 | `gnome-termial-profile.dconf` | Gnome Terminal profile |
 
