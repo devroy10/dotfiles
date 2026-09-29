@@ -109,6 +109,13 @@ if [ "$SHELL" != "$(which zsh)" ]; then
   sudo chsh -s "$(which zsh)" "$USER"
 fi
 
+echo "==> Setting up Ghostty config"
+mkdir -p "$HOME/.config/ghostty"
+if [ -f "$DOTFILES_DIR/ghostty/config" ]; then
+  ln -sf "$DOTFILES_DIR/ghostty/config" \
+    "$HOME/.config/ghostty/config"
+fi
+
 echo "==> Setting up Kitty config"
 mkdir -p "$HOME/.config/kitty"
 if [ -f "$DOTFILES_DIR/kitty/kitty.conf" ]; then
